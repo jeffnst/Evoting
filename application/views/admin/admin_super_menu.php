@@ -29,9 +29,8 @@
     </a>
 
   </li>
-
   <li class="">
-    <a href="<?php echo base_url('admin/sandi') ?>">
+    <a href="<?php echo base_url('admin/sandi'); ?>">
       <i class="fa fa-laptop text-aqua"></i>
       <span>Pengaturan Sandi</span>
       <span class="pull-right-container">
@@ -41,9 +40,21 @@
 
   </li>
 
- 
+  <li class="treeview">
+    <a href="#">
+      <i class="fa fa-gear text-teal"></i> <span>Pengaturan Aplikasi</span>
+      <span class="pull-right-container">
+        <i class="fa fa-angle-left pull-right"></i>
+      </span>
+    </a>
+    <ul class="treeview-menu">
+      <li><a href="<?php echo base_url('admin/pengguna') ?>"><i class="fa fa-circle-o"></i> Data Pengguna</a></li>
+      <li><a href="<?php echo base_url('admin/kosongkan_db') ?>"><i class="fa fa-circle-o"></i> Kosongkan Data</a></li>
+      <li><a href="<?php echo base_url('admin/backup_db') ?>"><i class="fa fa-circle-o"></i> Cadangan Data</a></li>
+      <li><a href="<?php echo base_url('admin/restore_db') ?>"><i class="fa fa-circle-o"></i> Pulihkan Data </a></li>
 
 
+    </ul>
   </li>
   <li><a href="<?php echo base_url() ;?>login/logout"><i class="fa fa-power-off text-red text-bold"></i> <span>Keluar</span></a></li>
 </ul>

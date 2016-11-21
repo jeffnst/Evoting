@@ -97,17 +97,59 @@
 
 
     </div>
-    <!-- /.nav-tabs-custom -->
 
-    <!-- Chat box -->
+<style type="text/css">
+.tg  {border-collapse:collapse;border-spacing:0;border-color:#999;}
+.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#999;color:#444;background-color:#F7FDFA;}
+.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#999;color:#fff;background-color:#26ADE4;}
+.tg .tg-yw4l{vertical-align:top}
+.tg .tg-6k2t{background-color:#D2E4FC;vertical-align:top}
+</style>
 
-    <!-- /.box (chat box) -->
-
-    <!-- TO DO List -->
-
-    <!-- /.box -->
-
-    <!-- quick email widget -->
+<div class="box printcontent">
+  <div class="box-header with-border">
+    <h3 class="box-title"><b>Tabel Hasil Pemilihan</b></h3>
+    <div class="btn btn-info pull-right printbtn"id="printbtn"> <b> <i class="fa fa-print"> Print</i></b></div>
+  </div>
+      <div class="box-body">  
+        <table class="tg table">
+          <tr>
+            <th class="tg-yw4l">No Urut</th>
+            <th class="tg-yw4l">Nama Paslon<br></th>
+            <th class="tg-yw4l">Jumlah Suara<br></th>
+          </tr>
+          <tr>
+            <td class="tg-6k2t">1</td>
+            <td class="tg-6k2t"><?php echo $paslon1;?></td>
+            <td class="tg-6k2t"><?php echo $pemilih_kandidat1 ;?></td>
+          </tr>
+          <tr>
+            <td class="tg-yw4l">2</td>
+            <td class="tg-yw4l"><?php echo $paslon2;?></td>
+            <td class="tg-yw4l"><?php echo $pemilih_kandidat2 ;?></td>
+          </tr>
+          <tr>
+            <td class="tg-6k2t">3</td>
+            <td class="tg-6k2t"><?php echo $paslon3;?></td>
+            <td class="tg-6k2t"><?php echo $pemilih_kandidat3 ;?></td>
+          </tr>
+          <tr>
+            <td class="tg-yw4l" colspan="2">Total Suara</td>
+            <td class="tg-yw4l"><?php $total =  $pemilih_kandidat1+$pemilih_kandidat2+$pemilih_kandidat3;
+            echo $total?></td>
+          </tr>
+          <tr>
+            <td class="tg-6k2t" colspan="2">Total DPT</td>
+            <td class="tg-6k2t"><?php echo $total_dpt ; ?></td>
+          </tr>
+          <tr>
+            <td class="tg-yw4l" colspan="2">Selisih</td>
+            <td class="tg-yw4l"><?php $selisih=$total_dpt-$total;
+            echo $selisih; ?></td>
+          </tr>
+        </table>
+        </div>  <!-- /.box body -->
+        </div>  <!-- /.box -->
 
 
   </section>
@@ -200,4 +242,15 @@
     barChartOptions.datasetFill = true;
     barChart.Bar(barChartData, barChartOptions);
   });
+</script>
+<script type="text/javascript">
+$('.printbtn').printPreview ({
+obj2print:'.printcontent',
+width:'800',
+height:screen.height,
+scrollbars:'no',
+title:'Print Preview'
+
+});
+
 </script>

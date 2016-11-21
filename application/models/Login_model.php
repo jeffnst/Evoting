@@ -13,31 +13,31 @@ public function getLoginData($usr,$psw)
   {
     foreach ($cek_login->result() as $qck)
     {
-      if($qck->status=='admin')
+      if($qck->level=='admin')
       {
 
                 $sess_data['logged_in']		= 'yes';
                 $sess_data['id']          = $qck->id;
                 $sess_data['nama'] 	     	= $qck->nama;
                 $sess_data['username'] 		= $qck->username;
-                $sess_data['status'] 		  = $qck->status;
+                $sess_data['level'] 		  = $qck->level;
 
 
                 $this->session->set_userdata($sess_data);
 
                 header('location:'.base_url().'admin');
             }
-            else if($qck->status=='operator')
+            else if($qck->level=='super')
             {
 
               $sess_data['logged_in']		= 'yes';
               $sess_data['id']          = $qck->id;
               $sess_data['nama'] 	     	= $qck->nama;
               $sess_data['username'] 		= $qck->username;
-              $sess_data['status'] 		  = $qck->status;
+              $sess_data['level'] 		  = $qck->level;
 
                $this->session->set_userdata($sess_data);
-               header('location:'.base_url().'operator');
+               header('location:'.base_url().'admin');
            }
 
        }

@@ -31,6 +31,7 @@
   <script src="<?php echo base_url();?>aset/plugins/jQuery/jquery-2.2.3.min.js"></script>
   <!-- jQuery UI 1.11.4 -->
   <script src="<?php echo base_url();?>aset/plugins/jQueryUI/jquery-ui.min.js"></script>
+  <script src="<?php echo base_url();?>aset/plugins/printjs/printPreview.js"></script>
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
@@ -210,6 +211,7 @@
 <script src="<?php echo base_url();?>aset/plugins/fastclick/fastclick.js"></script>
 <!-- AdminLTE App -->
 <script src="<?php echo base_url();?>aset/dist/js/app.min.js"></script>
+
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <!-- AdminLTE for demo purposes -->
 

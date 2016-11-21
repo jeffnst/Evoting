@@ -1,11 +1,11 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Admin_model extends CI_Model {
+class Pengguna_model extends CI_Model {
 
-	var $table = 'tbl_dpt';
-	var $column_order = array('nis','nama','kelas',null); //set column field database for datatable orderable
-	var $column_search = array('nis','nama','kelas'); //set column field database for datatable searchable just firstname , lastname , address are searchable
+	var $table = 'tbl_user';
+	var $column_order = array('nama','username','status',null); //set column field database for datatable orderable
+	var $column_search = array('nama','username','status'); //set column field database for datatable searchable just firstname , lastname , address are searchable
 	var $order = array('id' => 'desc'); // default order
 
 	public function __construct()
@@ -109,42 +109,6 @@ public function totalrows($table,$field,$data){
     return $query;
    
 }
-
-
-public function paslon($urut)
-	{
-		$ketua1= $this->db->get_where('tbl_kandidat',array('no_urut'=>$urut, 'posisi'=>'ketua'));
-		if (count($ketua1->result())>0)
-		{
-				foreach ($ketua1->result() as $hasil)
-
-						$urut_ketua = $hasil->no_urut;
-						$nis_ketua = $hasil->nis;
-						$nama_ketua = $hasil->nama;
-						$kelas_Ketua = $hasil->kelas;
-
-						$foto_ketua=  $hasil->foto ;
-
-
-		}
-		$wakil1= $this->db->get_where('tbl_kandidat',array('no_urut'=>$urut, 'posisi'=>'wakil'));
-		if (count($wakil1->result())>0)
-		{
-				foreach ($wakil1->result() as $hasil)
-
-						$urut_wakil = $hasil->no_urut;
-						$nis_wakil = $hasil->nis;
-						$nama_wakil = $hasil->nama;
-						$kelas_wakil = $hasil->kelas;
-
-						$foto_wakil= $hasil->foto;
-
-		}
-		$paslon=$nama_ketua.' dan '.$nama_wakil;
-		return $paslon; 
-
-	}
-
 
 
 }

@@ -8,6 +8,7 @@ class Admin extends CI_Controller {
 			parent::__construct();
 			$this->load->model('Admin_model','admin');
 			$this->load->model('Kandidat_model','kandidat');
+			$this->load->model('Pengguna_model','pengguna');
 			$this->load->library(array('PHPExcel','PHPExcel/IOFactory'));
 
 		}
@@ -15,17 +16,25 @@ class Admin extends CI_Controller {
 	public function index()
 		{
 			$cek= $this->session->userdata('logged_in');
-			$stts = $this->session->userdata('status');
-			if(!empty($cek) && $stts=='admin')
+			$stts = $this->session->userdata('level');
+			if(!empty($cek) && $stts=='admin'or $stts=='super')  
 				{
+					if ($stts=='super') {
+					$data['menu'] = 'admin/admin_super_menu';
+					}
+					else {
 					$data['menu'] = 'admin/admin_menu';
+					}
 					$data['ptitle'] = '';
-					$data['infobar'] = '';
+					$data['paslon1'] = $this->admin->paslon(1);
+					$data['paslon2'] = $this->admin->paslon(2);
+					$data['paslon3'] = $this->admin->paslon(3);
 					$data['konten'] = 'admin/admin_dashboard';
 					$data['total_pemilih']=$this->db->count_all_results('tbl_hasil');
 					$data['pemilih_kandidat1']=$this->admin->totalrows('tbl_hasil','pilihan','1');
 					$data['pemilih_kandidat2']=$this->admin->totalrows('tbl_hasil','pilihan','2');
 					$data['pemilih_kandidat3']=$this->admin->totalrows('tbl_hasil','pilihan','3');
+					$data['total_dpt']=$this->db->count_all_results('tbl_dpt');
 					$data['grafik'][]=$this->admin->totalrows('tbl_hasil','pilihan','1');
 					$data['grafik'][]=$this->admin->totalrows('tbl_hasil','pilihan','2');
 					$data['grafik'][]=$this->admin->totalrows('tbl_hasil','pilihan','3');
@@ -43,13 +52,152 @@ class Admin extends CI_Controller {
 
 		} // end of method
 
+public function kosongkan_db(){
+		$cek= $this->session->userdata('logged_in');
+		$stts = $this->session->userdata('level');
+		if(!empty($cek) && $stts=='super')
+			{
+				$data['menu'] = 'admin/admin_super_menu';
+				$data['konten'] = 'admin/admin_empty_db';
+				$data['msg'] 	='';
+			
+				$this->load->view('admin/admin_template',$data);
+			}
 
+			else
+			{
+				header('location:'.base_url().'login');
+			}
+}
+
+public function get_empty_db(){
+	$cek= $this->session->userdata('logged_in');
+		$stts = $this->session->userdata('level');
+		if(!empty($cek) && $stts=='super')
+			{
+				$table = $this->uri->segment(3);
+				if ($this->db->empty_table($table)){
+
+				$data['menu'] = 'admin/admin_super_menu';
+				$data['konten'] = 'admin/admin_empty_db';
+				$data['msg'] 	='Proses pengosongan Tabel <b>'.$table.'</b> berhasil';
+			
+				$this->load->view('admin/admin_template',$data);
+				}
+
+				
+		
+		
+			}
+
+			else
+			{
+				header('location:'.base_url().'login');
+			}
+}		
+
+public function restore_db(){
+	$cek= $this->session->userdata('logged_in');
+		$stts = $this->session->userdata('level');
+		if(!empty($cek) && $stts=='super')
+			{
+				$data['menu'] = 'admin/admin_super_menu';
+				$data['konten'] = 'admin/admin_restore_db';
+				$data['msg'] 	='';
+			
+				$this->load->view('admin/admin_template',$data);
+			}
+
+			else
+			{
+				header('location:'.base_url().'login');
+			}
+
+}
+
+public function get_restore(){
+				$filename = $this->input->post('file',True);
+				$config['upload_path']          = 'backup/';
+				$config['allowed_types']        = 'sql';
+				$config['file_name'] = $filename;
+
+				$this->load->library('upload', $config);
+
+				if(!$this->upload->do_upload('file')) //upload and validate
+				{
+					print_r($this->upload->display_errors());	
+				}
+				
+				$media = $this->upload->data();
+   				$inputFileName = 'backup/'.$media['file_name'];
+				
+				// $restore_file = $this->upload->data('file_name');
+				// return $restore_file;
+				print_r($filename);
+				$isi_file = file_get_contents($inputFileName);
+				$string_query = rtrim ($isi_file, "\n;");
+				$array_query = explode(";",$string_query);
+				foreach($array_query as $query)
+					{
+					$this->db->query($query);
+					}
+					
+				$data['menu'] 	= 'admin/admin_super_menu';
+				$data['konten'] = 'admin/admin_restore_db';
+				$data['msg'] 	= "Proses pemulihan data berhasil";
+				$this->load->view('admin/admin_template',$data);
+				
+				
+					
+}
+
+public function backup_db(){
+	$cek= $this->session->userdata('logged_in');
+		$stts = $this->session->userdata('level');
+		if(!empty($cek) && $stts=='super')
+			{
+
+			$prefs = array(
+							'tables'     => array('tbl_dpt', 'tbl_hasil','tbl_kandidat'),
+							// Array table yang akan dibackup
+							'ignore'     => array(),
+							// Daftar table yang tidak akan dibackup
+							'format'     => 'sql',
+							// gzip, zip, txt format filenya
+							'filename'   => 'evoting.sql',
+							// Nama file
+							'add_drop'   => TRUE, 
+							// Untuk menambahkan drop table di backup
+							'add_insert' => TRUE,
+							// Untuk menambahkan data insert di file backup
+							'newline'    => "\n"
+							// Baris baru yang digunakan dalam file backup
+						);
+	
+
+				// Load the DB utility class
+			$this->load->dbutil();
+
+			// Backup database dan dijadikan variable
+			$backup = $this->dbutil->backup($prefs);
+
+			// Load file helper dan menulis ke server untuk keperluan restore
+			
+			write_file('./backup/evoting.sql', $backup);
+
+			// Load the download helper dan melalukan download ke komputer
+			$this->load->helper('download');
+			$name="evoting-".date('Ymd-His').".sql";
+			force_download($name, $backup);
+
+			}
+}
 
 
   public function data_pemilih(){
 		$cek= $this->session->userdata('logged_in');
-		$stts = $this->session->userdata('status');
-		if(!empty($cek) && $stts=='admin')
+		$stts = $this->session->userdata('level');
+		if(!empty($cek) && $stts=='admin'or $stts=='super')
 			{
 				$data['menu'] = 'admin/admin_menu';
 				$data['ptitle'] = '';
@@ -171,8 +319,8 @@ public function ajax_add()
 
 	public function kandidat(){
 		$cek= $this->session->userdata('logged_in');
-		$stts = $this->session->userdata('status');
-		if(!empty($cek) && $stts=='admin')
+		$stts = $this->session->userdata('level');
+		if(!empty($cek) && $stts=='admin'or $stts=='super')
 			{
 				$data['menu'] = 'admin/admin_menu';
 				$data['ptitle'] = '';
@@ -424,5 +572,170 @@ public function upload(){
 	 $data[output]=$this->db->get('tbl_dpt');
 	 $this->load->view('admin/admin_export_excel',$data);
  }
+
+
+public function pengguna(){
+		$cek= $this->session->userdata('logged_in');
+		$stts = $this->session->userdata('level');
+		if(!empty($cek) && $stts=='super')
+			{
+				$data['menu'] = 'admin/admin_super_menu';
+				$data['ptitle'] = '';
+				$data['infobar'] = '';
+				$data['konten'] = 'admin/admin_pengguna';
+
+				$this->load->view('admin/admin_template',$data);
+
+  }
+
+}
+ public	function pengguna_list()
+	{
+		$list = $this->pengguna->get_datatables();
+		$data = array();
+		$no = $_POST['start'];
+		foreach ($list as $user) {
+			$no++;
+			$row = array();
+			$row[] = $user->username;
+			$row[] = $user->nama;
+			$row[] = $user->level;
+
+
+			//add html for action
+			$row[] = '<a class="btn btn-sm btn-danger" href="javascript:void(0)" title="Hapus" onclick="delete_person('."'".$user->id."'".')"><i class="glyphicon glyphicon-trash"></i> </a>';
+
+			$data[] = $row;
+		}
+
+		$output = array(
+						"draw" => $_POST['draw'],
+						"recordsTotal" => $this->pengguna->count_all(),
+						"recordsFiltered" => $this->pengguna->count_filtered(),
+						"data" => $data,
+				);
+		//output to json format
+		echo json_encode($output);
+	}
+
+
+
+public function pengguna_add()
+	{
+		$this->_pengguna_validate();
+		$data = array(
+				'nama' => $this->input->post('nama'),
+				'username' => $this->input->post('username'),
+				'password' => md5("password"),
+				'level' => $this->input->post('level'),
+
+			);
+		$insert = $this->pengguna->save($data);
+		echo json_encode(array("status" => TRUE));
+	}
+
+
+	public function pengguna_delete($id)
+	{
+		$this->pengguna->delete_by_id($id);
+		echo json_encode(array("status" => TRUE));
+	}
+
+
+ private function _pengguna_validate()
+	{
+		$data = array();
+		$data['error_string'] = array();
+		$data['inputerror'] = array();
+		$data['status'] = TRUE;
+
+		
+
+		if($this->input->post('nama') == '')
+		{
+			$data['inputerror'][] = 'nama';
+			$data['error_string'][] = 'Nama is required';
+			$data['status'] = FALSE;
+		}
+
+
+		if($this->input->post('username') == '')
+		{
+			$data['inputerror'][] = 'username';
+			$data['error_string'][] = 'Username is required';
+			$data['status'] = FALSE;
+		}
+
+		if($this->input->post('level') == '')
+		{
+			$data['inputerror'][] = 'level';
+			$data['error_string'][] = 'level is required';
+			$data['status'] = FALSE;
+		}
+
+
+
+		if($data['status'] === FALSE)
+		{
+			echo json_encode($data);
+			exit();
+		}
+	}
+
+public function sandi(){
+			$cek= $this->session->userdata('logged_in');
+			$stts = $this->session->userdata('level');
+			if(!empty($cek) && $stts=='admin'or $stts=='super')  
+				{
+					if ($stts=='super') {
+					$data['menu'] = 'admin/admin_super_menu';
+					}
+					else {
+					$data['menu'] = 'admin/admin_menu';
+					}
+					$data['ptitle'] = '';
+					$data['msg'] = '';
+					$data['konten'] = 'admin/admin_sandi';
+					$this->load->view('admin/admin_template',$data);
+
+				}
+
+			else
+			{
+				header('location:'.base_url().'login');
+			}
+}
+ public function change_pass()
+{	
+	
+	$id= $this->session->userdata('id');
+	$newpass= md5($this->input->post('new_pass'));
+	$this->db->where('id',$id);
+	if($this->db->update('tbl_user', array('password'=>$newpass))){
+			$stts = $this->session->userdata('level');
+			if( $stts=='admin' or $stts=='super')  
+				{
+					if ($stts=='super') {
+					$data['menu'] = 'admin/admin_super_menu';
+					}
+					else {
+					$data['menu'] = 'admin/admin_menu';
+					}
+					
+					$data['msg']= 'Sandi berhasil diubah, silahkan logout dan login kembali untuk menerapkan perubahan';
+		
+					$data['konten'] = 'admin/admin_sandi';
+					$this->load->view('admin/admin_template',$data);
+
+				}	
+		
+		
+	}
+
+}
+
+
+
+
 
 } //end of Admin Controller

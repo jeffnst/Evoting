@@ -19,8 +19,8 @@ class Login extends CI_Controller {
 			}
 			else
 			{
-				$st = $this->session->userdata('status');
-				if($st=='admin')
+				$st = $this->session->userdata('level');
+				if($st=='admin' or $st=='super')
 				{
 					header('location:'.base_url().'admin');
 				}
