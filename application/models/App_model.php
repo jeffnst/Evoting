@@ -115,4 +115,38 @@ public function getbarcode($data){
 				}
 }
 
+public function set_waktu() {
+$cek_waktu = $this->db->get('tbl_info');
+	  if(count($cek_waktu->result())>0)
+			  {
+			  	foreach ($cek_waktu->result() as $hasil) {
+			  		$mulai = $hasil->mulai_pemilihan;
+			  		$selesai = $hasil->selesai_pemilihan;
+			  		}
+
+				}
+
+$waktu_mulai = new DateTime($mulai);
+$waktu_selesai = new DateTime($selesai);
+$today = new DateTime();
+
+
+if ($today < $waktu_mulai) {
+	// belum mulai
+	$waktu = 'belum';
+	return $waktu;
+	}
+elseif ($today >= $waktu_mulai AND $today < $waktu_selesai) {
+	// mulai
+	$waktu = 'mulai';
+	return $waktu;
+	}
+elseif ($today > $waktu_selesai) {
+	// selesai
+	$waktu = 'selesai';
+	return $waktu;
+	}
+
+}
+
 } //end of file

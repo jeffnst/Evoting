@@ -18,13 +18,16 @@
        folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="<?php echo base_url();?>aset/dist/css/skins/_all-skins.min.css">
 
-
+ <!-- lightbox -->
+  <link rel="stylesheet" href="<?php echo base_url();?>aset/plugins/lightbox/ekko-lightbox.min.css">
   <!-- jvectormap -->
   <link rel="stylesheet" href="<?php echo base_url();?>aset/plugins/jvectormap/jquery-jvectormap-1.2.2.css">
   <!-- Date Picker -->
   <link rel="stylesheet" href="<?php echo base_url();?>aset/plugins/datepicker/datepicker3.css">
   <!-- Daterange picker -->
   <link rel="stylesheet" href="<?php echo base_url();?>aset/plugins/daterangepicker/daterangepicker.css">
+  <link rel="stylesheet" href="<?php echo base_url();?>aset/plugins/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css">
+
   <!-- bootstrap wysihtml5 - text editor -->
   <link rel="stylesheet" href="<?php echo base_url();?>aset/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
   <!-- jQuery 2.2.3 -->
@@ -80,13 +83,13 @@
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src="<?php echo base_url();?>aset/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
+              <img src="<?php echo base_url();?>aset/dist/img/img-user.jpg" class="user-image" alt="User Image">
               <span class="hidden-xs"><?php echo $this->session->userdata('nama'); ?></span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
-                <img src="<?php echo base_url();?>aset/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                <img src="<?php echo base_url();?>aset/dist/img/img-user.jpg" class="img-circle" alt="User Image">
 
                 <p>
                   <?php echo $this->session->userdata('nama'); ?>
@@ -113,7 +116,7 @@
       <!-- Sidebar user panel -->
       <div class="user-panel">
         <div class="pull-left image">
-          <img src="<?php echo base_url();?>aset/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+          <img src="<?php echo base_url();?>aset/dist/img/img-user.jpg" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
           <p><?php echo $this->session->userdata('status'); ?></p>
@@ -203,6 +206,12 @@
 
 <!-- datepicker -->
 <script src="<?php echo base_url();?>aset/plugins/datepicker/bootstrap-datepicker.js"></script>
+<script src="<?php echo base_url();?>aset/plugins/moment/min/moment.min.js"></script>
+<script src="<?php echo base_url();?>aset/plugins/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+
+<!-- lightbox -->
+<script src="<?php echo base_url();?>aset/plugins/lightbox/ekko-lightbox.min.js"></script>
+
 <!-- Bootstrap WYSIHTML5 -->
 <script src="<?php echo base_url();?>aset/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
 <!-- Slimscroll -->
@@ -212,9 +221,12 @@
 <!-- AdminLTE App -->
 <script src="<?php echo base_url();?>aset/dist/js/app.min.js"></script>
 
-<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<!-- AdminLTE for demo purposes -->
-
+<script type="text/javascript">
+$(document).on('click', '[data-toggle="lightbox"]', function(event) {
+    event.preventDefault();
+    $(this).ekkoLightbox();
+});
+</script>
 
 <!-- jam -->
 

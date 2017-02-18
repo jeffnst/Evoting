@@ -17,7 +17,7 @@
                     <th>Kelas</th>
                     <th>Posisi</th>
                     <th>Foto</th>
-                    <th style="width:150px;">Action</th>
+                    <th style="width:150px;">Aksi</th>
                 </tr>
             </thead>
             <tbody>
@@ -31,7 +31,7 @@
               <th>Kelas</th>
               <th>Posisi</th>
               <th>Foto</th>
-              <th style="width:150px;">Action</th>
+              <th style="width:150px;">Aksi</th>
 
             </tr>
             </tfoot>
@@ -113,7 +113,7 @@
         $('.form-group').removeClass('has-error'); // clear error class
         $('.help-block').empty(); // clear error string
         $('#modal_form').modal('show'); // show bootstrap modal
-        $('.modal-title').text('Add Person'); // Set Title to Bootstrap modal title
+        $('.modal-title').text('Tambah Data'); // Set Title to Bootstrap modal title
 
         $('#photo-preview').hide(); // hide photo preview modal
 
@@ -140,10 +140,11 @@
                 $('[name="no_urut"]').val(data.no_urut);
                 $('[name="nis"]').val(data.nis);
                 $('[name="nama"]').val(data.nama);
+                $('[name="nama_panggilan"]').val(data.nama_panggilan);
                 $('[name="kelas"]').val(data.kelas);
                 $('[name="posisi"]').val(data.posisi);
                 $('#modal_form').modal('show'); // show bootstrap modal when complete loaded
-                $('.modal-title').text('Edit Person'); // Set title to Bootstrap modal title
+                $('.modal-title').text('Edit data'); // Set title to Bootstrap modal title
 
                 $('#photo-preview').show(); // show photo preview modal
 
@@ -292,12 +293,20 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-md-3">Nama</label>
+                            <label class="control-label col-md-3">Nama Lengkap</label>
                             <div class="col-md-9">
                                 <textarea name="nama" placeholder="Nama" class="form-control"></textarea>
                                 <span class="help-block"></span>
                             </div>
                         </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Nama Panggilan</label>
+                            <div class="col-md-9">
+                                <input name="nama_panggilan" placeholder="Nama Panggilan" class="form-control" type="text">
+                                <span class="help-block"></span>
+                            </div>
+                        </div>
+
                         <div class="form-group">
                             <label class="control-label col-md-3">Posisi</label>
                             <div class="col-md-9">

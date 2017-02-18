@@ -12,11 +12,24 @@ class App extends CI_Controller {
 
 	public function index()
 	{
+		$waktu= $this->apmo->set_waktu();
+		if($waktu ==='mulai'){
+
+		
 		$data['kandidat1'] = $this->apmo->kandidat1(1);
 		$data['kandidat2'] = $this->apmo->kandidat1(2);
 		$data['kandidat3'] = $this->apmo->kandidat1(3);
 
 		$this->load->view('landing_page',$data);
+		}
+		elseif ($waktu ==='belum') {
+			$data['konten'] = 'app/belum_mulai';
+			$this->load->view('app/close_page',$data);
+		}
+		else {
+			$data['konten'] = 'app/waktu_habis';
+			$this->load->view('app/close_page',$data);
+		}
 	}
 
   public function scan_barcode() {

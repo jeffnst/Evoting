@@ -4,8 +4,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Pengguna_model extends CI_Model {
 
 	var $table = 'tbl_user';
-	var $column_order = array('nama','username','status',null); //set column field database for datatable orderable
-	var $column_search = array('nama','username','status'); //set column field database for datatable searchable just firstname , lastname , address are searchable
+	var $column_order = array('nama','username','level',null); //set column field database for datatable orderable
+	var $column_search = array('nama','username','level'); //set column field database for datatable searchable just firstname , lastname , address are searchable
 	var $order = array('id' => 'desc'); // default order
 
 	public function __construct()

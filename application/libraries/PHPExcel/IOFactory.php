@@ -129,7 +129,7 @@ class IOFactory
 	 * @return	PHPExcel_Writer_IWriter
 	 * @throws	PHPExcel_Reader_Exception
 	 */
-	public static function createWriter(PHPExcel $phpExcel, $writerType = '') {
+	public function createWriter(PHPExcel $phpExcel, $writerType = '') {
 		// Search type
 		$searchType = 'IWriter';
 

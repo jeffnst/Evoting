@@ -29,6 +29,14 @@
     </a>
 
   </li>
+<li class="">
+    <a href="<?php echo base_url('admin/laporan') ?>">
+      <i class="fa fa-bar-chart text-purple"></i>
+      <span>Laporan</span>
+      <span class="pull-right-container">
+        
+      </span>
+    </a>
 
   <li class="">
     <a href="<?php echo base_url('admin/sandi') ?>">

@@ -1,74 +1,102 @@
-<div class="row">
-  <div class="col-lg-3 col-xs-6">
-    <!-- small box -->
-    <div class="small-box bg-aqua">
-      <div class="inner">
-        <h5>Hasil Voting Kandidat No.1</h5>
+<div class="box box-default">
 
-        <p><?php echo $pemilih_kandidat1 ;?></p>
-      </div>
-      <div class="icon">
-        <i class="ion ion-user"></i>
-      </div>
-      <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
-    </div>
-  </div>
-  <!-- ./col -->
-  <div class="col-lg-3 col-xs-6">
-    <!-- small box -->
-    <div class="small-box bg-green">
-      <div class="inner">
-        <h5>Hasil Voting Kandidat No.2</h5>
+<div class="box-header with-border">
+<i class="fa fa-bullhorn"> </i>
+<h3 class="box-title"> Hasil Pemilihan Ketua Osis </h3>
+</div>
+<div class="box-body">
+<div class="col-md-3 col-sm-6 col-xs-12">
+          
+          <div class="info-box with-border" style="box-shadow: 3px 3px 3px #333;">
+            <div class="info-box-icon bg-aqua" style="font-size: 45px; line-height: 55px">  
+                <span class="inner" ><?php echo $pemilih_kandidat1 ;?></span> 
+                <span class="inner"> <h5> Suara </h5> </span>
+            </div>
+            <div class="info-box-content" style="padding: 10px 10px 3px 2px;">
+              
+            <?php 
+            if($box1){
+              echo $box1;
+            }
+            ;?>
 
-        <p><?php echo $pemilih_kandidat2 ;?></p>
-      </div>
-      <div class="icon">
-        <i class="ion ion-stats-bars"></i>
-      </div>
-      <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
-    </div>
-  </div>
-  <!-- ./col -->
-  <div class="col-lg-3 col-xs-6">
-    <!-- small box -->
-    <div class="small-box bg-yellow">
-      <div class="inner">
-        <h5>Hasil Voting Kandidat No.3</h5>
-
-        <p><?php echo $pemilih_kandidat3 ;?></p>
-      </div>
-      <div class="icon">
-        <i class="ion ion-person-add"></i>
-      </div>
-      <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
-    </div>
-  </div>
-  <!-- ./col -->
+            </div>
+            <!-- /.info-box-content -->
+          </div>
+          <!-- /.info-box -->
+        </div>
+        <!-- /.col -->  
 
 
+<div class="col-md-3 col-sm-6 col-xs-12">
+          <div class="info-box with-border" style="box-shadow: 3px 3px 3px #333;">
+            <div class="info-box-icon bg-green" style="font-size: 45px; line-height: 55px">  
+            <span class="inner" ><?php echo $pemilih_kandidat2 ;?></span> 
+            <span class="inner"> <h5> Suara </h5> </span>
+            </div>
+            <div class="info-box-content" style="padding: 10px 10px 3px 2px;">
+            <?php 
+            if($box2){
+              echo $box2;
+            }
+            ;?>
 
+            </div>
+            <!-- /.info-box-content -->
+          </div>
+          <!-- /.info-box -->
+        </div>
+        <!-- /.col -->  
 
-  <div class="col-lg-3 col-xs-6">
-    <!-- small box -->
-    <div class="small-box bg-red">
-      <div class="inner">
-        <h5>Total Pemilih</h5>
+<div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="info-box with-border" style="box-shadow: 3px 3px 3px #333;">
+            <div class="info-box-icon bg-yellow" style="font-size: 45px; line-height: 55px">  
+            <span class="inner" ><?php echo $pemilih_kandidat3 ;?></span> 
+            <span class="inner"> <h5> Suara </h5> </span>
+            </div>
 
-        <p><?php echo $total_pemilih; ?></p>
-      </div>
-      <div class="icon">
-        <i class="ion ion-pie-graph"></i>
-      </div>
-      <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
-    </div>
-  </div>
-  <!-- ./col -->
+            <div class="info-box-content" style="padding: 10px 10px 3px 2px;">
+             <?php 
+            if($box3){
+              echo $box3;
+            }
+            ;?>
+            </div>
+            <!-- /.info-box-content -->
+          </div>
+          <!-- /.info-box -->
+        </div>
+        <!-- /.col -->  
+
+<div class="col-md-3 col-sm-6 col-xs-12">
+          <div class="info-box with-border" style="box-shadow: 3px 3px 3px #333;">
+            <div class="info-box-icon bg-red" style="font-size: 55px; line-height: 90px">  
+            <span class="inner" ><i class="fa fa-star-o"></i></span> 
+            <span class="inner">  </span>
+            </div>
+            <div class="info-box-content">
+              <span class="info-box-text">Jumlah Suara :</span>
+              <span class="info-box-number"><?php echo $total_pemilih ;?></span>
+              <span class="info-box-text">Suara</span>
+            </div>
+            <!-- /.info-box-content -->
+          </div>
+          <!-- /.info-box -->
+        </div>
+        <!-- /.col -->  
+</div>
 </div>
 
+
+<div class="row">
+  
+
+
 <!-- BAR CHART -->
+      <div class="col-xs-6">  
           <div class="box box-success">
             <div class="box-header with-border">
-              <h3 class="box-title">Bar Chart</h3>
+              <h3 class="box-title">Grafik Hasil Pemilihan</h3>
 
               <div class="box-tools pull-right">
                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
@@ -83,21 +111,17 @@
             </div>
             <!-- /.box-body -->
           </div>
+      </div>
 
 
 
 <!-- /.row -->
 <!-- Main row -->
-<div class="row">
+
   <!-- Left col -->
-  <section class="col-lg-7 connectedSortable">
+  <section class="">
     <!-- Custom tabs (Charts with tabs)-->
-    <div class="nav-tabs-custom">
-      <!-- Tabs within a box -->
-
-
-    </div>
-
+    
 <style type="text/css">
 .tg  {border-collapse:collapse;border-spacing:0;border-color:#999;}
 .tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#999;color:#444;background-color:#F7FDFA;}
@@ -106,6 +130,7 @@
 .tg .tg-6k2t{background-color:#D2E4FC;vertical-align:top}
 </style>
 
+<div class="col-xs-6">
 <div class="box printcontent">
   <div class="box-header with-border">
     <h3 class="box-title"><b>Tabel Hasil Pemilihan</b></h3>
@@ -115,7 +140,7 @@
         <table class="tg table">
           <tr>
             <th class="tg-yw4l">No Urut</th>
-            <th class="tg-yw4l">Nama Paslon<br></th>
+            <th class="tg-yw4l">Nama Pasangan Calon<br></th>
             <th class="tg-yw4l">Jumlah Suara<br></th>
           </tr>
           <tr>
@@ -150,7 +175,7 @@
         </table>
         </div>  <!-- /.box body -->
         </div>  <!-- /.box -->
-
+</div>
 
   </section>
   <!-- /.Left col -->

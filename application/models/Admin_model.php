@@ -124,7 +124,7 @@ public function paslon($urut)
 						$kelas_Ketua = $hasil->kelas;
 
 						$foto_ketua=  $hasil->foto ;
-
+						
 
 		}
 		$wakil1= $this->db->get_where('tbl_kandidat',array('no_urut'=>$urut, 'posisi'=>'wakil'));
@@ -140,11 +140,117 @@ public function paslon($urut)
 						$foto_wakil= $hasil->foto;
 
 		}
-		$paslon=$nama_ketua.' dan '.$nama_wakil;
+		$paslon= $nama_ketua.' dan '.$nama_wakil;
 		return $paslon; 
 
 	}
 
+public function box($no) {
+
+	$ketua1= $this->db->get_where('tbl_kandidat',array('no_urut'=>$no, 'posisi'=>'ketua'));
+		if (count($ketua1->result())>0)
+		{
+				foreach ($ketua1->result() as $hasil)
+
+						$urut_ketua		= $hasil->no_urut;
+						$nis_ketua		= $hasil->nis;
+						$nama_ketua 	= $hasil->nama;
+						$kelas_Ketua 	= $hasil->kelas;
+						$nick_ketua 	= $hasil->nama_panggilan;	
+						$foto_ketua 	= $hasil->foto ;
+						
+
+		}
+		$wakil1= $this->db->get_where('tbl_kandidat',array('no_urut'=>$no, 'posisi'=>'wakil'));
+		if (count($wakil1->result())>0)
+		{
+				foreach ($wakil1->result() as $hasil)
+
+						$urut_wakil		= $hasil->no_urut;
+						$nis_wakil 		= $hasil->nis;
+						$nama_wakil		= $hasil->nama;
+						$kelas_wakil	= $hasil->kelas;
+						$nick_wakil 	= $hasil->nama_panggilan;
+						$foto_wakil		= $hasil->foto;
+
+		}
+		$box=           ' <div class="col-xs-6" style="padding-left: 5px;">
+                <a href="'.base_url("uploads/".$foto_ketua).'" data-toggle="lightbox" data-title="'.$nama_ketua.'" data-footer="Calon Ketua OSIS dengan No. Urut <b>' .$no.' </b>">
+                <img src="'.base_url("uploads/".$foto_ketua).'" class="img-fluid" style="height:50px;width: 50px;"> </a>
+                <p style="font-size: 12px;">'.$nick_ketua.'</p>
+                                          
+            </div>
+
+
+            <div class="col-xs-6">
+                 <a href="'.base_url("uploads/".$foto_wakil).'" data-toggle="lightbox" data-title="'.$nama_wakil.'" data-footer="Calon Wakil Ketua OSIS dengan No. Urut <b>' .$no.' </b>">
+                <img src="'.base_url("uploads/".$foto_wakil).'" class="img-fluid" style="height:50px;width: 50px;"> </a>
+                <p style="font-size: 12px;">'.$nick_wakil.'</p>            
+            </div>';
+
+		return $box; 
+
+
+
+	}
+public function get_id($id)
+	{
+		$this->db->from('tbl_info');
+		$this->db->where('id',$id);
+		$query = $this->db->get();
+
+		return $query->row();
+	}
+public function info_sekolah(){
+	$info= $this->db->get('tbl_info',1);
+	if (count($info->result())>0)
+		{
+				foreach ($info->result() as $hasil)
+
+				$nama_sekolah = $hasil->nama_sekolah;
+
+	}
+	return $nama_sekolah;
+
+	}
+
+public function info_tahun_pemilihan(){
+	$info= $this->db->get('tbl_info',1);
+	if (count($info->result())>0)
+		{
+				foreach ($info->result() as $hasil)
+
+				$tahun_pemilihan = $hasil->tahun_pemilihan;
+
+	}
+	return $tahun_pemilihan;
+	}
+
+public function info_kop(){
+	$info= $this->db->get('tbl_info',1);
+	if (count($info->result())>0)
+		{
+				foreach ($info->result() as $hasil)
+
+				$kop = $hasil->kop_surat;
+
+	}
+	return $kop;
+	}	
+
+
+
+public function save_info($data)
+	{
+		$this->db->insert('tbl_info', $data);
+		
+	}
+
+	public function update_info($where, $data)
+	{
+		$this->db->update('tbl_info', $data, $where);
+		return $this->db->affected_rows();
+	}
 
 
 }
